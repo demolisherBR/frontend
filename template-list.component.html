@@ -1,0 +1,151 @@
+
+<div class="content-wrapper">
+<section class="content-header">
+    <h1>
+        Cadastro de Templates
+    </h1>
+    <br>
+    <br>
+      <p data-placement="top" data-toggle="tooltip" title="Cadastrar novo Template"><button class="btn btn-success btn-xs" data-title="Editar" data-toggle="modal" data-target="#new_template" style="float:right; height: 30px;">Cadastre um novo Template</button></p>
+      <br>
+      <br>
+<div style="background-color: white;border-radius:5px" class="box">
+    <div class="box-body">
+
+    <table  class="table table-striped nowrap display table-bordered table-hover" role="grid" aria-describedby="example2_info">
+      <thead>
+          <tr>
+          <!-- <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">Rendering engine</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Browser: activate to sort column ascending">Browser</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Platform(s): activate to sort column ascending">Platform(s)</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="Engine version: activate to sort column ascending">Engine version</th><th class="sorting" tabindex="0" aria-controls="example2" rowspan="1" colspan="1" aria-label="CSS grade: activate to sort column ascending">CSS grade</th></tr> -->
+           <th>Nome do Template</th>
+           <th>Identificador do Template</th>
+           <th>Preço</th>
+           <th>Foto da Capa</th>
+           <th>Editar</th>
+           <th>Deletar</th>
+          </tr>
+        </thead>
+
+        <tfoot>
+          <tr>
+            <th>Nome do Template</th>
+            <th>Identificador do Template</th>
+            <th>Preço</th>
+            <th>Foto da Capa</th>
+            <th>Editar</th>
+            <th>Deletar</th>
+          </tr>
+        </tfoot>
+
+        <tbody *ngFor="let temp of templates.data">
+          <tr >
+           <td><span>{{temp.name}}</span></td>
+           <td><span>{{temp.identifier}}</span></td>
+           <td><span>{{temp.price}}</span></td>
+           <td><span><a target="_blank" href="{{temp.photo}}"><img src={{temp.photo}} width="42" height="42"></a></span></td>
+           <td><p data-placement="top" data-toggle="tooltip" title="Editar"><button class="btn text-center btn-primary btn-xs" data-title="Editar" data-toggle="modal" data-target="#edit" ><span class="glyphicon glyphicon-pencil"></span></button></p></td>
+           <td><p data-placement="top" data-toggle="tooltip" title="Deletar"><button class="btn btn-danger btn-xs" data-title="Deletar" data-toggle="modal" data-target="#delete" ><span class="glyphicon glyphicon-trash"></span></button></p></td>
+          </tr>
+
+          
+        </tbody>
+      </table>
+        </div> 
+      </div>   
+      <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+          <div class="modal-dialog">
+        <div class="modal-content">
+              <div class="modal-header">
+            <button type="button" class="close"  data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title custom_align" id="Heading">Edite o template</h4>
+          </div>
+              <div class="modal-body">
+              <div class="form-group">
+            <input class="form-control " type="text" placeholder="Foto capa">
+            </div>
+            <div class="form-group">
+            
+            <input class="form-control "  type="text" placeholder="Preço">
+            </div>
+          </div>
+              <div class="modal-footer ">
+            <button type="button" class="btn btn-warning btn-lg" style="text-allign:center;" style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Atualizar</button>
+          </div>
+            </div>
+        <!-- /.modal-content --> 
+      </div>
+          <!-- /.modal-dialog --> 
+        </div>
+        
+        
+        <div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+          <div class="modal-dialog">
+        <div class="modal-content">
+              <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title custom_align" id="Heading">Deletar Template</h4>
+          </div>
+              <div class="modal-body">
+           
+           <div class="alert alert-danger"><span class="glyphicon glyphicon-warning-sign"></span> Você tem certeza que deseja deletar esse template?</div>
+           
+          </div>
+            <div class="modal-footer ">
+            <button type="button" class="btn btn-success" (click)="delete(temp)"><span class="glyphicon glyphicon-ok-sign"></span> Sim</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Não</button>
+          </div>
+            </div>
+        <!-- /.modal-content --> 
+      </div>
+          <!-- /.modal-dialog --> 
+     </div>
+     <div class="modal fade" id="new_template" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+      <div class="modal-dialog">
+    <div class="modal-content">
+          <div class="modal-header">
+        <button type="button" class="close"  data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title custom_align" id="Heading">Cadastre um novo Template</h4>
+        
+      </div>
+      <form [formGroup]="newForm">
+      <div class="modal-body">
+        <div class="form-group">
+        
+        <input formControlName="name"  class="form-control " type="text" placeholder="Nome do Livro"/>
+        </div>
+        <div class="form-group">
+        <input formControlName="identifier" class="form-control " type="text" placeholder="Identificador do Livro"/>
+        </div>
+        <div class="form-group">
+        <input formControlName="price"  class="form-control " type="number" placeholder="Preço do Livro"/>
+        </div>
+        Selecione o link da foto de capa do livro:
+        <br>
+        <br>
+        <div class="form-group">
+        <input formControlName="photo" class="form-control " type="text" placeholder="Link da Foto do Livro"/>
+       
+      </div>
+      
+      </div>
+    </form>
+          <div class="modal-footer ">
+        <button type="button" class="btn btn-success btn-lg"  (click)="add()"style="width: 100%;"><span class="glyphicon glyphicon-ok-sign"></span> Criar</button>
+      </div>
+  </div>
+    <!-- /.modal-content --> 
+  </div>
+      <!-- /.modal-dialog --> 
+    </div>
+
+     <ol class="breadcrumb">
+         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+         <li class="active">Cadastro de Templates</li>
+       </ol>
+     </section>
+   
+     <!-- Main content -->
+     <section class="content">   
+</section>
+
+</div>
+
